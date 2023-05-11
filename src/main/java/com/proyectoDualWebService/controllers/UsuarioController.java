@@ -6,9 +6,8 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.Response;
-
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 @Path("/usuarios")
 public class UsuarioController {
@@ -17,7 +16,9 @@ public class UsuarioController {
     @Path("/get/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUsuario(@PathParam("id") int id){
-        return Response.ok().entity(new UsuarioDAO().findbyId(id)).build();
+        return Response.ok()
+                .entity(new UsuarioDAO().findbyId(id))
+                .build();
     }
 
 }
