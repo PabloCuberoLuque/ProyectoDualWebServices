@@ -25,8 +25,8 @@ public class Usuario {
     public Usuario(ResultSet result){
         try{
             this.id = result.getInt("id");
-            this.username = result.getString("username");
-            this.password = result.getString("password");
+            this.username = result.getString("usuario");
+            this.password = result.getString("pass");
             this.email = result.getString("email");
             this.imagen = result.getString("img_perfil");
             this.nacimiento = result.getDate("nacimiento").toLocalDate();

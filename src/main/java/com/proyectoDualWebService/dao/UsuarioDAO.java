@@ -1,16 +1,36 @@
 package com.proyectoDualWebService.dao;
 
 import com.proyectoDualWebService.dto.Usuario;
+import com.proyectoDualWebService.persistence.conector.MySQLConnector;
 
-import java.time.LocalDate;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 
 public class UsuarioDAO {
 
-    public Usuario findbyId(int id){
-        Usuario user = new Usuario(id, "pepe", "1234", "pepe@gmail.com", "img.jpg", LocalDate.now(), true);
+    private final static MySQLConnector connector = new MySQLConnector();
 
-        return user;
+    public Usuario findbyId(int id) {
+        try {
+            Connection con = connector.getMySQLConnection();
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM usuario WHERE id = ?");
+            stmt.setInt(1, id);
+            ResultSet result = stmt.executeQuery();
+            Usuario usu = null;
+            while (result.next()) {
+                usu = new Usuario(result);
+            }
+            return usu;
+        } catch (ClassNotFoundException | SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+
+
+
     }
 
 }
