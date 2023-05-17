@@ -1,4 +1,4 @@
-package com.proyectoDualWebService.conector;
+package com.proyectoDualWebService.persistence.conector;
 
 public class MySQLConstants {
     public static final String PASSWD = "jdbc.mysql.passwd";
