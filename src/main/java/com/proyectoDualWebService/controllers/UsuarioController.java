@@ -21,4 +21,12 @@ public class UsuarioController {
                 .build();
     }
 
+    @GET
+    @Path("/get/email/{email}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getEmail(@PathParam("email") String email){
+        return Response.ok()
+                .entity(new UsuarioDAO().findbyEmail(email))
+                .build();
+    }
 }

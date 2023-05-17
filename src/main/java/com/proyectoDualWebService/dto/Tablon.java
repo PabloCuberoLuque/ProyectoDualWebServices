@@ -1,7 +1,6 @@
 package com.proyectoDualWebService.dto;
 
 import com.proyectoDualWebService.dao.UsuarioDAO;
-import jakarta.json.bind.annotation.JsonbDateFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 @Data
 @Builder
@@ -21,17 +20,16 @@ public class Tablon {
     private String mensaje;
     private Usuario id_user;
     private int likes;
-    @JsonbDateFormat
-    private LocalDateTime createdAt;
+    private Timestamp createdAt;
 
-    public Tablon(ResultSet result){
+    public Tablon(ResultSet result) {
         try {
             this.id = result.getInt("id");
             this.mensaje = result.getString("mensage");
             this.id_user = new UsuarioDAO().findbyId(result.getInt("id_user"));
             this.likes = result.getInt("likes");
-            this.createdAt = result.getTimestamp("create_at").toLocalDateTime();
-        } catch (SQLException e){
+            this.createdAt = result.getTimestamp("create_at");
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

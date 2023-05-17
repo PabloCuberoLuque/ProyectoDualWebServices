@@ -14,20 +14,20 @@ import java.sql.SQLException;
 @AllArgsConstructor
 public class Grupo {
     private int id;
-    private int servicio;
-    private int user1;
-    private int user2;
-    private Integer user3;
-    private Integer user4;
-    private Integer user5;
-    private Integer user6;
-    private Integer user7;
-    private Integer user8;
+    private Servicio servicio;
+    private Usuario user1;
+    private Usuario user2;
+    private Usuario user3;
+    private Usuario user4;
+    private Usuario user5;
+    private Usuario user6;
+    private Usuario user7;
+    private Usuario user8;
 
-    public Grupo(ResultSet result){
+    /*public Grupo(ResultSet result){
         try  {
             this.id = result.getInt("id");
-            this.servicio = result.getInt("servicio");
+            this.servicio = new ServivioDAO.getId(result.getInt("servicio"));
             this.user1 = result.getInt("user1");
             this.user2 = result.getInt("user2");
             this.user3 = (Integer) result.getObject("user3");
@@ -39,5 +39,5 @@ public class Grupo {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }

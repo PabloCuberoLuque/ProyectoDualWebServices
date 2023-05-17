@@ -28,9 +28,22 @@ public class UsuarioDAO {
             e.printStackTrace();
             return null;
         }
-
-
-
     }
 
+    public Usuario findbyEmail(String email){
+        try {
+            Connection con = connector.getMySQLConnection();
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM usuario WHERE email LIKE ?");
+            stmt.setString(1, "%"+email+"%");
+            ResultSet result = stmt.executeQuery();
+            Usuario usu = null;
+            while (result.next()) {
+                usu = new Usuario(result);
+            }
+            return usu;
+        } catch (ClassNotFoundException | SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
