@@ -46,4 +46,22 @@ public class UsuarioDAO {
             return null;
         }
     }
+
+    public Usuario findByNombreExacto(String name){
+        try {
+            Connection con = connector.getMySQLConnection();
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM usuario WHERE usuario = ?");
+            stmt.setString(1, name);
+            ResultSet result = stmt.executeQuery();
+            Usuario usu = null;
+            while (result.next()) {
+                usu = new Usuario(result);
+            }
+            return usu;
+        } catch (ClassNotFoundException | SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }

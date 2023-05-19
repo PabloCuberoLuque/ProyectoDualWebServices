@@ -29,4 +29,13 @@ public class UsuarioController {
                 .entity(new UsuarioDAO().findbyEmail(email))
                 .build();
     }
+
+    @GET
+    @Path("/get/nombreExacto/{name}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getNombreExacto(@PathParam("name") String name){
+        return Response.ok()
+                .entity(new UsuarioDAO().findByNombreExacto(name))
+                .build();
+    }
 }
