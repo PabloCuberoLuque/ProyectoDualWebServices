@@ -164,7 +164,7 @@ public class ManagerTablonImpl implements ManagerTablon {
             Connection con = conector.getMySQLConnection();
             PreparedStatement statement = con.prepareStatement("INSERT INTO tablon (mensage, id_user, likes, create_at) VALUES (?, ?, ?, ?)");
             statement.setString(1, obj.getMessage());
-            statement.setInt(2, obj.getIdUsuario());
+            statement.setInt(2, obj.getIdUsuario().getId());
             statement.setInt(3, obj.getLikes());
             statement.setTimestamp(4, obj.getCreateAt());
 
@@ -182,7 +182,7 @@ public class ManagerTablonImpl implements ManagerTablon {
             Connection con = conector.getMySQLConnection();
             PreparedStatement statement = con.prepareStatement("UPDATE tablon SET mensage = ?, id_user = ?, likes = ?, create_at = ? WHERE id = ?");
             statement.setString(1, obj.getMessage());
-            statement.setInt(2, obj.getIdUsuario());
+            statement.setInt(2, obj.getIdUsuario().getId());
             statement.setInt(3, obj.getLikes());
             statement.setTimestamp(4, obj.getCreateAt());
             statement.setInt(5, obj.getId());
