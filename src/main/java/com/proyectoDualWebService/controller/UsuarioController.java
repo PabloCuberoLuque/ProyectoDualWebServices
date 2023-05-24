@@ -30,6 +30,15 @@ public class UsuarioController {
                 .build();
     }
 
+    @GET
+    @Path("/{username}/getn")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUsuarioName(@PathParam("username") String username) {
+        return Response.ok()
+                .entity(new ManagerUsuarioImpl().findByUsername(username))
+                .build();
+    }
+
     @POST
     @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
