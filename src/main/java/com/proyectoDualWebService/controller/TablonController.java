@@ -1,7 +1,7 @@
 package com.proyectoDualWebService.controller;
 
-import com.proyectoDualWebService.dao.TablonDAO;
-import com.proyectoDualWebService.model.Tablon;
+import com.proyectoDualWebService.dto.Tablon;
+import com.proyectoDualWebService.persistence.manager.impl.ManagerTablonImpl;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -10,51 +10,60 @@ import java.util.List;
 
 @Path("/tablones")
 public class TablonController {
-
     @GET
-    @Path("/get/{id}")
+    @Path("/getAll")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTablon(@PathParam("id") int id){
-        return Response.ok()
-                .entity(new TablonDAO().obneterTablonPorId(id))
-                .build();
-    }
-
-    @GET
-    @Path("/obtenerTodoTablon")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response obtenerTodoTablon(){
-        List<Tablon> tablones = new TablonDAO().obtenerTodoTablon();
+    public Response findAllTablon(){
+        List<Tablon> tablones = new ManagerTablonImpl().findAll();
         return Response.ok()
                 .entity(tablones)
                 .build();
     }
 
+    @GET
+    @Path("/{id}/get")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTablon(@PathParam("id") int id){
+        return Response.ok()
+                .entity(new ManagerTablonImpl().findById(id))
+                .build();
+    }
+
+
+    @GET
+    @Path("/{id}/getAllUser")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTablonUser(@PathParam("id") int id){
+        return Response.ok()
+                .entity(new ManagerTablonImpl().findByIdUser(id))
+                .build();
+    }
+
     @POST
-    @Path("/insertarTablon")
+    @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response insertarTablon(Tablon tablon){
-        new TablonDAO().insertarTablon(tablon);
+    public Response addTablon(Tablon tablon){
+        new ManagerTablonImpl().insert(tablon);
         return Response.status(Response.Status.CREATED)
                 .entity("Tablon creado correctamente")
                 .build();
     }
 
     @PUT
-    @Path("/actualizarTablon/{id}")
+    @Path("/{id}/update")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response actualizarTablon(@PathParam("id") int id, Tablon tablon){
+    public Response updateTablon(@PathParam("id") int id, Tablon tablon){
         tablon.setId(id);
-        new TablonDAO().actualizarTablon(tablon);
+        new ManagerTablonImpl().update(tablon);
         return Response.ok()
                 .entity("Tablon actualizado correctamente")
                 .build();
     }
 
     @DELETE
-    @Path("/eliminarTablon/{id}")
-    public Response eliminarTablon(@PathParam("id") int id){
-        new TablonDAO().eliminarTablon(id);
+    @Path("/{id}/delete")
+    public Response deleteTablon(@PathParam("id") int id){
+        new ManagerTablonImpl().delete(id);
         return Response.ok()
                 .entity("Tablon eliminado correctamente")
                 .build();
