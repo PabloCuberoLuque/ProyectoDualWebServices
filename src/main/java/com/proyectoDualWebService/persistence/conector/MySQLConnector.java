@@ -1,4 +1,4 @@
-package com.proyectoDualWebService.conector;
+package com.proyectoDualWebService.persistence.conector;
 
 import lombok.Getter;
 import lombok.Setter;
