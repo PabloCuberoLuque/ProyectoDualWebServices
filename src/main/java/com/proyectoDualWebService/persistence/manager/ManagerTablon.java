@@ -2,6 +2,7 @@ package com.proyectoDualWebService.persistence.manager;
 
 import com.proyectoDualWebService.dto.Tablon;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -45,7 +46,7 @@ public interface ManagerTablon extends Manager<Tablon>{
      * @param createAt Fecha de un post especifico para buscar los posts en la base de datos.
      * @return @return Un/a Una {@link List} de {@link Tablon}.
      */
-    List<Tablon> findByDate(Date createAt);
+    List<Tablon> findByDate(Timestamp createAt);
 
 
 

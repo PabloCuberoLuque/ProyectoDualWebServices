@@ -1,14 +1,13 @@
 package com.proyectoDualWebService.persistence.manager.impl;
 
+import com.proyectoDualWebService.comparators.TablonComparator;
 import com.proyectoDualWebService.dto.Tablon;
 import com.proyectoDualWebService.persistence.conector.MySQLConnector;
 import com.proyectoDualWebService.persistence.manager.ManagerTablon;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.sql.Date;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ManagerTablonImpl implements ManagerTablon {
@@ -27,6 +26,7 @@ public class ManagerTablonImpl implements ManagerTablon {
                 posts.add(new Tablon(result));
             }
 
+            Collections.sort(posts,new TablonComparator());
             con.close();
 
             return posts;
@@ -53,6 +53,8 @@ public class ManagerTablonImpl implements ManagerTablon {
                 Tablon post= new Tablon();
                 posts.add(post);
             }
+
+            Collections.sort(posts,new TablonComparator());
 
             con.close();
 
@@ -114,6 +116,7 @@ public class ManagerTablonImpl implements ManagerTablon {
                 posts.add(post);
             }
 
+            Collections.sort(posts,new TablonComparator());
             con.close();
 
             return posts;
@@ -126,14 +129,14 @@ public class ManagerTablonImpl implements ManagerTablon {
     }
 
     @Override
-    public List<Tablon> findByDate(Date createAt) {
+    public List<Tablon> findByDate(Timestamp createAt) {
         String sql = "SELECT * FROM tablon WHERE create_at = ?";
 
         try{
             Connection con = conector.getMySQLConnection();
             PreparedStatement stmt = con.prepareStatement(sql);
 
-            stmt.setDate(1, (java.sql.Date) createAt);
+            stmt.setTimestamp(1,  createAt);
             ResultSet result = stmt.executeQuery();
 
             List<Tablon> posts= new ArrayList<>();
@@ -142,6 +145,8 @@ public class ManagerTablonImpl implements ManagerTablon {
                 Tablon post= new Tablon();
                 posts.add(post);
             }
+
+            Collections.sort(posts,new TablonComparator());
 
             con.close();
 
