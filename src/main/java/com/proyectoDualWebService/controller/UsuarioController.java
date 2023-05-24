@@ -39,6 +39,15 @@ public class UsuarioController {
                 .build();
     }
 
+    @GET
+    @Path("/{email}/getM")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUsuarioEmail(@PathParam("email") String email) {
+        return Response.ok()
+                .entity(new ManagerUsuarioImpl().findByEmail(email))
+                .build();
+    }
+
     @POST
     @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
