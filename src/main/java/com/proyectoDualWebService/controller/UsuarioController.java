@@ -14,7 +14,7 @@ public class UsuarioController {
     @GET
     @Path("/getAll")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findAllUsuario(){
+    public Response findAllUsuario() {
         List<Usuario> usuarios = new ManagerUsuarioImpl().findAll();
         return Response.ok()
                 .entity(usuarios)
@@ -24,7 +24,7 @@ public class UsuarioController {
     @GET
     @Path("/{id}/get")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getUsuario(@PathParam("id") int id){
+    public Response getUsuario(@PathParam("id") int id) {
         return Response.ok()
                 .entity(new ManagerUsuarioImpl().findById(id))
                 .build();
@@ -33,7 +33,7 @@ public class UsuarioController {
     @POST
     @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addUsuario(Usuario usuario){
+    public Response addUsuario(Usuario usuario) {
         new ManagerUsuarioImpl().update(usuario);
         return Response.status(Response.Status.CREATED)
                 .entity("Usuario creado correctamente")
@@ -43,7 +43,7 @@ public class UsuarioController {
     @PUT
     @Path("/{id}/update")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateUsuario(@PathParam("id") int id,  Usuario usuario){
+    public Response updateUsuario(@PathParam("id") int id, Usuario usuario) {
         usuario.setId(id);
         new ManagerUsuarioImpl().update(usuario);
         return Response.ok()
@@ -53,7 +53,7 @@ public class UsuarioController {
 
     @DELETE
     @Path("/{id}/delete")
-    public Response eliminarUsuario(@PathParam("id") int id){
+    public Response eliminarUsuario(@PathParam("id") int id) {
         new ManagerUsuarioImpl().delete(id);
         return Response.ok()
                 .entity("Usuario eliminado correctamente")

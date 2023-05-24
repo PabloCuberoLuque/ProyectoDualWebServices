@@ -1,6 +1,7 @@
 package com.proyectoDualWebService.dto;
 
 import lombok.*;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -19,20 +20,19 @@ public class Usuario {
     private LocalDate nacimiento;
     private boolean admin;
 
-    public Usuario(ResultSet result){
-        try{
+    public Usuario(ResultSet result) {
+        try {
             this.id = result.getInt("id");
             this.username = result.getString("usuario");
             this.password = result.getString("pass");
             this.email = result.getString("email");
             this.imagen = result.getString("img_perfil");
-            this.nacimiento= result.getDate("nacimiento").toLocalDate();
-            this.admin =result.getBoolean("admin");
-        } catch (SQLException e){
+            this.nacimiento = result.getDate("nacimiento").toLocalDate();
+            this.admin = result.getBoolean("admin");
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
 
 
 }

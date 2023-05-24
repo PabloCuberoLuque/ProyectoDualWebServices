@@ -17,16 +17,15 @@ public class Servicio {
     private String web;
 
 
+    public Servicio(ResultSet result) {
+        try {
+            this.id = result.getInt("id");
+            this.nombre = result.getString("nombre");
+            this.precio = result.getFloat("precio");
+            this.web = result.getString("web");
 
-    public Servicio(ResultSet result){
-    try{
-        this.id=result.getInt("id");
-        this.nombre=result.getString("nombre");
-        this.precio= result.getFloat("precio");
-        this.web= result.getString("web");
-
-    }catch(SQLException e){
-        e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-}
 }

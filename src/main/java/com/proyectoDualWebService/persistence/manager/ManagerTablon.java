@@ -3,7 +3,6 @@ package com.proyectoDualWebService.persistence.manager;
 import com.proyectoDualWebService.dto.Tablon;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 

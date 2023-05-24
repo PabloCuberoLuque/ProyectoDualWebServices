@@ -13,7 +13,7 @@ public class TablonController {
     @GET
     @Path("/getAll")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findAllTablon(){
+    public Response findAllTablon() {
         List<Tablon> tablones = new ManagerTablonImpl().findAll();
         return Response.ok()
                 .entity(tablones)
@@ -23,7 +23,7 @@ public class TablonController {
     @GET
     @Path("/{id}/get")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTablon(@PathParam("id") int id){
+    public Response getTablon(@PathParam("id") int id) {
         return Response.ok()
                 .entity(new ManagerTablonImpl().findById(id))
                 .build();
@@ -33,7 +33,7 @@ public class TablonController {
     @GET
     @Path("/{id}/getAllUser")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTablonUser(@PathParam("id") int id){
+    public Response getTablonUser(@PathParam("id") int id) {
         return Response.ok()
                 .entity(new ManagerTablonImpl().findByIdUser(id))
                 .build();
@@ -42,7 +42,7 @@ public class TablonController {
     @POST
     @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addTablon(Tablon tablon){
+    public Response addTablon(Tablon tablon) {
         new ManagerTablonImpl().insert(tablon);
         return Response.status(Response.Status.CREATED)
                 .entity("Tablon creado correctamente")
@@ -52,7 +52,7 @@ public class TablonController {
     @PUT
     @Path("/{id}/update")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateTablon(@PathParam("id") int id, Tablon tablon){
+    public Response updateTablon(@PathParam("id") int id, Tablon tablon) {
         tablon.setId(id);
         new ManagerTablonImpl().update(tablon);
         return Response.ok()
@@ -62,7 +62,7 @@ public class TablonController {
 
     @DELETE
     @Path("/{id}/delete")
-    public Response deleteTablon(@PathParam("id") int id){
+    public Response deleteTablon(@PathParam("id") int id) {
         new ManagerTablonImpl().delete(id);
         return Response.ok()
                 .entity("Tablon eliminado correctamente")

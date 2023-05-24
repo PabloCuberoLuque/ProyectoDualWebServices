@@ -13,7 +13,7 @@ public class ServicioController {
     @GET
     @Path("/getAll")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllServicio(){
+    public Response getAllServicio() {
         List<Servicio> servicios = new ManagerServicioImpl().findAll();
         return Response.ok()
                 .entity(servicios)
@@ -23,7 +23,7 @@ public class ServicioController {
     @GET
     @Path("/{id}/get")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getServicio(@PathParam("id") int id){
+    public Response getServicio(@PathParam("id") int id) {
         return Response.ok()
                 .entity(new ManagerServicioImpl().findById(id))
                 .build();
@@ -32,7 +32,7 @@ public class ServicioController {
     @POST
     @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response insertServicio(Servicio servicio){
+    public Response insertServicio(Servicio servicio) {
         new ManagerServicioImpl().insert(servicio);
         return Response.status(Response.Status.CREATED)
                 .entity("Servicio creado correctamente")
@@ -42,7 +42,7 @@ public class ServicioController {
     @PUT
     @Path("/{id}/update")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateServicio(@PathParam("id") int id, Servicio servicio){
+    public Response updateServicio(@PathParam("id") int id, Servicio servicio) {
         servicio.setId(id);
         new ManagerServicioImpl().update(servicio);
         return Response.ok()
@@ -52,7 +52,7 @@ public class ServicioController {
 
     @DELETE
     @Path("/{id}/delete")
-    public Response deleteServicio(@PathParam("id") int id){
+    public Response deleteServicio(@PathParam("id") int id) {
         new ManagerServicioImpl().delete(id);
         return Response.ok()
                 .entity("Servicio eliminado correctamente")

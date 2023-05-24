@@ -15,15 +15,15 @@ public class ManagerServicioImpl implements ManagerServicio {
 
     @Override
     public List<Servicio> findAll() {
-        List<Servicio> servicios= new ArrayList<>();
+        List<Servicio> servicios = new ArrayList<>();
 
-        try{
+        try {
             Connection con = conector.getMySQLConnection();
             Statement stmt = con.createStatement();
 
             ResultSet result = stmt.executeQuery("SELECT * FROM servicio");
 
-            while (result.next()){
+            while (result.next()) {
                 servicios.add(new Servicio(result));
             }
 
@@ -31,7 +31,7 @@ public class ManagerServicioImpl implements ManagerServicio {
 
             return servicios;
 
-        } catch (ClassNotFoundException | SQLException e){
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
             return null;
         }
@@ -39,18 +39,18 @@ public class ManagerServicioImpl implements ManagerServicio {
 
     @Override
     public List<Servicio> findAllById(Set<Integer> ids) {
-        String sql = String.format("SELECT * FROM servicio WHERE id IN (%s)",ids.stream().map(data -> "\""+data+"\"").collect(Collectors.joining(", ")));
+        String sql = String.format("SELECT * FROM servicio WHERE id IN (%s)", ids.stream().map(data -> "\"" + data + "\"").collect(Collectors.joining(", ")));
 
-        try{
+        try {
             Connection con = conector.getMySQLConnection();
             Statement stmt = con.createStatement();
 
             ResultSet result = stmt.executeQuery(sql);
 
-            List<Servicio> servicios= new ArrayList<>();
+            List<Servicio> servicios = new ArrayList<>();
 
-            while (result.next()){
-                Servicio servicio= new Servicio();
+            while (result.next()) {
+                Servicio servicio = new Servicio();
                 servicios.add(servicio);
             }
 
@@ -58,7 +58,7 @@ public class ManagerServicioImpl implements ManagerServicio {
 
             return servicios;
 
-        } catch (ClassNotFoundException | SQLException e){
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
             return null;
         }
@@ -70,7 +70,7 @@ public class ManagerServicioImpl implements ManagerServicio {
     public Servicio findById(int id) {
         String sql = "SELECT * FROM servicio WHERE ID = ?";
 
-        try{
+        try {
             Connection con = conector.getMySQLConnection();
             PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -82,30 +82,31 @@ public class ManagerServicioImpl implements ManagerServicio {
             Servicio servicio = null;
 
 
-            while (result.next()){
+            while (result.next()) {
                 //Inicializo un usuario para cada resultado
-               servicio = new Servicio(result);
+                servicio = new Servicio(result);
             }
 
             con.close();
 
             return servicio;
 
-        } catch (ClassNotFoundException | SQLException e){
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
             return null;
         }
 
 
     }
+
     @Override
     public void insert(Servicio obj) {
         try {
-            Connection con= conector.getMySQLConnection();
+            Connection con = conector.getMySQLConnection();
             PreparedStatement statement = con.prepareStatement("INSERT INTO servicio (precio, nombre, web) VALUES (?, ?, ?)");
-            statement.setDouble(1,obj.getPrecio());
-            statement.setString(2,obj.getNombre());
-            statement.setString(3,obj.getWeb());
+            statement.setDouble(1, obj.getPrecio());
+            statement.setString(2, obj.getNombre());
+            statement.setString(3, obj.getWeb());
 
             statement.executeUpdate();
             con.close();
@@ -117,12 +118,12 @@ public class ManagerServicioImpl implements ManagerServicio {
     @Override
     public void update(Servicio obj) {
         try {
-            Connection con= conector.getMySQLConnection();
+            Connection con = conector.getMySQLConnection();
             PreparedStatement statement = con.prepareStatement("UPDATE servicio SET nombre = ?, precio = ?, web = ? WHERE id = ?");
             statement.setString(1, obj.getNombre());
             statement.setDouble(2, obj.getPrecio());
-            statement.setString(3,obj .getWeb());
-            statement.setInt(4,obj.getId());
+            statement.setString(3, obj.getWeb());
+            statement.setInt(4, obj.getId());
 
             statement.executeUpdate();
             con.close();
@@ -134,7 +135,7 @@ public class ManagerServicioImpl implements ManagerServicio {
     @Override
     public void delete(int id) {
         try {
-            Connection con= conector.getMySQLConnection();
+            Connection con = conector.getMySQLConnection();
             PreparedStatement statement = con.prepareStatement("DELETE FROM servicio WHERE id = ?");
             statement.setInt(1, id);
 
@@ -144,5 +145,5 @@ public class ManagerServicioImpl implements ManagerServicio {
             e.printStackTrace();
         }
     }
-    }
+}
 
