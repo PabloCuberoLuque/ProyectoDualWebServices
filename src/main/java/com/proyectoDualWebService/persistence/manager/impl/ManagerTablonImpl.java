@@ -161,8 +161,7 @@ public class ManagerTablonImpl implements ManagerTablon {
             statement.setString(1, obj.getMessage());
             statement.setInt(2, obj.getIdUsuario());
             statement.setInt(3, obj.getLikes());
-            statement.setDate(4, java.sql.Date.valueOf(obj.getCreateAt()));
-
+            statement.setTimestamp(4, obj.getCreateAt());
 
             statement.executeUpdate();
             con.close();
@@ -180,7 +179,7 @@ public class ManagerTablonImpl implements ManagerTablon {
             statement.setString(1, obj.getMessage());
             statement.setInt(2, obj.getIdUsuario());
             statement.setInt(3, obj.getLikes());
-            statement.setDate(4, java.sql.Date.valueOf(obj.getCreateAt()));
+            statement.setTimestamp(4,obj.getCreateAt());
             statement.setInt(5, obj.getId());
 
 

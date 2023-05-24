@@ -137,13 +137,42 @@ public class ManagerGrupoImpl implements ManagerGrupo {
             statement.setInt(1, obj.getServicio().getId());
             statement.setInt(2, obj.getUser1().getId());
             statement.setInt(3, obj.getUser2().getId());
+            if(obj.getUser3()==null){
+                statement.setObject(4, null);
+            }else{
+                statement.setInt(4, obj.getUser3().getId());
+            }
 
-            statement.setInt(4, obj.getUser3().getId());
-            statement.setInt(5, obj.getUser4().getId());
-            statement.setInt(6, obj.getUser5().getId());
-            statement.setInt(7, obj.getUser6().getId());
-            statement.setInt(8, obj.getUser7().getId());
-            statement.setInt(9, obj.getUser8().getId());
+            if(obj.getUser4()==null){
+                statement.setObject(5, null);
+            }else{
+                statement.setInt(5, obj.getUser4().getId());
+            }
+
+            if(obj.getUser5()==null){
+                statement.setObject(6, null);
+            }else{
+                statement.setInt(6, obj.getUser5().getId());
+            }
+
+            if(obj.getUser6()==null){
+                statement.setObject(7, null);
+            }else{
+                statement.setInt(7, obj.getUser6().getId());
+            }
+
+            if(obj.getUser7()==null){
+                statement.setObject(8, null);
+            }else{
+                statement.setInt(8, obj.getUser7().getId());
+            }
+
+            if(obj.getUser8()==null){
+                statement.setObject(9, null);
+            }else{
+                statement.setInt(9, obj.getUser8().getId());
+            }
+
 
 
             statement.executeUpdate();
@@ -161,12 +190,42 @@ public class ManagerGrupoImpl implements ManagerGrupo {
             statement.setInt(1, obj.getServicio().getId());
             statement.setInt(2, obj.getUser1().getId());
             statement.setInt(3, obj.getUser2().getId());
-            statement.setInt(4, obj.getUser3().getId());
-            statement.setInt(5, obj.getUser4().getId());
-            statement.setInt(6, obj.getUser5().getId());
-            statement.setInt(7, obj.getUser6().getId());
-            statement.setInt(8, obj.getUser7().getId());
-            statement.setInt(9, obj.getUser8().getId());
+
+            if(obj.getUser3()==null){
+                statement.setObject(4, null);
+            }else{
+                statement.setInt(4, obj.getUser3().getId());
+            }
+
+            if(obj.getUser4()==null){
+                statement.setObject(5, null);
+            }else{
+                statement.setInt(5, obj.getUser4().getId());
+            }
+
+            if(obj.getUser5()==null){
+                statement.setObject(6, null);
+            }else{
+                statement.setInt(6, obj.getUser5().getId());
+            }
+
+            if(obj.getUser6()==null){
+                statement.setObject(7, null);
+            }else{
+                statement.setInt(7, obj.getUser6().getId());
+            }
+
+            if(obj.getUser7()==null){
+                statement.setObject(8, null);
+            }else{
+                statement.setInt(8, obj.getUser7().getId());
+            }
+
+            if(obj.getUser8()==null){
+                statement.setObject(9, null);
+            }else{
+                statement.setInt(9, obj.getUser8().getId());
+            }
 
 
             statement.executeUpdate();

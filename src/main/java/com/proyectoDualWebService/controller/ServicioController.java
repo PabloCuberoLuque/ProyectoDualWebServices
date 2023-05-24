@@ -1,7 +1,7 @@
 package com.proyectoDualWebService.controller;
 
-import com.proyectoDualWebService.dao.ServicioDAO;
-import com.proyectoDualWebService.model.Servicio;
+import com.proyectoDualWebService.dto.Servicio;
+import com.proyectoDualWebService.persistence.manager.impl.ManagerServicioImpl;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -10,51 +10,50 @@ import java.util.List;
 
 @Path("/servicios")
 public class ServicioController {
-
     @GET
-    @Path("/get/{id}")
+    @Path("/getAll")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getServicio(@PathParam("id") int id){
-        return Response.ok()
-                .entity(new ServicioDAO().obtenerServicio(id))
-                .build();
-    }
-
-    @GET
-    @Path("/obtenerTodoServicio")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response obtenerTodoServicio(){
-        List<Servicio> servicios = new ServicioDAO().obtenerTodoServicio();
+    public Response getAllServicio(){
+        List<Servicio> servicios = new ManagerServicioImpl().findAll();
         return Response.ok()
                 .entity(servicios)
                 .build();
     }
 
+    @GET
+    @Path("/{id}/get")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getServicio(@PathParam("id") int id){
+        return Response.ok()
+                .entity(new ManagerServicioImpl().findById(id))
+                .build();
+    }
+
     @POST
-    @Path("/insertarServicio")
+    @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response insertarServicio(Servicio servicio){
-        new ServicioDAO().insertarServicio(servicio);
+    public Response insertServicio(Servicio servicio){
+        new ManagerServicioImpl().insert(servicio);
         return Response.status(Response.Status.CREATED)
                 .entity("Servicio creado correctamente")
                 .build();
     }
 
     @PUT
-    @Path("/actualizarServicio/{id}")
+    @Path("/{id}/update")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response actualizarServicio(@PathParam("id") int id, Servicio servicio){
+    public Response updateServicio(@PathParam("id") int id, Servicio servicio){
         servicio.setId(id);
-        new ServicioDAO().actualizarServicio(servicio);
+        new ManagerServicioImpl().update(servicio);
         return Response.ok()
                 .entity("Servicio actualizado correctamente")
                 .build();
     }
 
     @DELETE
-    @Path("/eliminarServicio/{id}")
-    public Response eliminarServicio(@PathParam("id") int id){
-        new ServicioDAO().eliminarServicio(id);
+    @Path("/{id}/delete")
+    public Response deleteServicio(@PathParam("id") int id){
+        new ManagerServicioImpl().delete(id);
         return Response.ok()
                 .entity("Servicio eliminado correctamente")
                 .build();
