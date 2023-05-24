@@ -1,8 +1,10 @@
 package com.proyectoDualWebService.dto;
 
 import com.proyectoDualWebService.persistence.manager.impl.ManagerUsuarioImpl;
-import lombok.*;
-
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
