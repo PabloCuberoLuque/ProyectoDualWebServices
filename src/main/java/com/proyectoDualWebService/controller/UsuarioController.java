@@ -51,10 +51,11 @@ public class UsuarioController {
     @POST
     @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response addUsuario(Usuario usuario) {
-        new ManagerUsuarioImpl().update(usuario);
+        new ManagerUsuarioImpl().insert(usuario);
         return Response.status(Response.Status.CREATED)
-                .entity("Usuario creado correctamente")
+                .entity(usuario)
                 .build();
     }
 

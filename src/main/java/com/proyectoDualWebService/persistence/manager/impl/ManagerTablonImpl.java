@@ -111,7 +111,7 @@ public class ManagerTablonImpl implements ManagerTablon {
             List<Tablon> posts = new ArrayList<>();
 
             while (result.next()) {
-                Tablon post = new Tablon();
+                Tablon post = new Tablon(result);
                 posts.add(post);
             }
 
