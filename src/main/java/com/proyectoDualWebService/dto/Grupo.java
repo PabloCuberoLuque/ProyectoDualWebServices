@@ -1,4 +1,4 @@
-package com.proyectoDualWebService.model;
+package com.proyectoDualWebService.dto;
 
 import lombok.*;
 

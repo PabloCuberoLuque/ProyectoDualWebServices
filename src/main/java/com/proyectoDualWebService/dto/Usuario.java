@@ -1,4 +1,4 @@
-package com.proyectoDualWebService.model;
+package com.proyectoDualWebService.dto;
 
 
 import lombok.*;
@@ -6,7 +6,6 @@ import lombok.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Data
 @Builder
