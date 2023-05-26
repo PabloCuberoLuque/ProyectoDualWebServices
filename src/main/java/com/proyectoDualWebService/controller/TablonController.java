@@ -42,10 +42,11 @@ public class TablonController {
     @POST
     @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response addTablon(Tablon tablon) {
         new ManagerTablonImpl().insert(tablon);
         return Response.status(Response.Status.CREATED)
-                .entity("Tablon creado correctamente")
+                .entity(tablon)
                 .build();
     }
 
