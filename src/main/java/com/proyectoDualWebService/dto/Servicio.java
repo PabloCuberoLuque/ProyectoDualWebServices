@@ -13,6 +13,7 @@ import java.sql.SQLException;
 public class Servicio {
     private int id;
     private String nombre;
+    private String plan;
     private float precio;
     private String web;
 
@@ -21,6 +22,7 @@ public class Servicio {
         try {
             this.id = result.getInt("id");
             this.nombre = result.getString("nombre");
+            this.plan = result.getString("plan");
             this.precio = result.getFloat("precio");
             this.web = result.getString("web");
 
