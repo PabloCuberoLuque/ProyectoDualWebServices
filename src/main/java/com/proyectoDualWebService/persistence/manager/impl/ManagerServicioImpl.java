@@ -95,7 +95,30 @@ public class ManagerServicioImpl implements ManagerServicio {
             e.printStackTrace();
             return null;
         }
+    }
 
+    public List<Servicio> findByNombre(String servicio){
+        String sql = "SELECT * FROM servicio WHERE nombre = ?";
+
+        try {
+            Connection con = conector.getMySQLConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setString(1, servicio);
+            ResultSet result = stmt.executeQuery();
+
+            List<Servicio> servicios = new ArrayList<>();
+            while (result.next()){
+                servicios.add(new Servicio(result));
+            }
+
+            con.close();
+            return servicios;
+
+        } catch (ClassNotFoundException | SQLException e){
+            e.printStackTrace();
+            return null;
+        }
 
     }
 

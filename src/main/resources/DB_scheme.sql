@@ -16,7 +16,7 @@ CREATE TABLE servicio(
     id int PRIMARY KEY AUTO_INCREMENT,
     nombre varchar(64) NOT NULL,
     plan varchar(64) NOT NULL,
-    precio float(2,2),
+    precio decimal(19,2),
     web varchar(32)
 );
 

@@ -29,6 +29,15 @@ public class ServicioController {
                 .build();
     }
 
+    @GET
+    @Path("{servicio}/getS")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getServicioN(@PathParam("servicio") String nombre){
+        return Response.ok()
+                .entity(new ManagerServicioImpl().findByNombre(nombre))
+                .build();
+    }
+
     @POST
     @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
