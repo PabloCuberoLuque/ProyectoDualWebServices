@@ -1,10 +1,7 @@
 package com.proyectoDualWebService.dto;
 
+import lombok.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,15 +13,20 @@ import java.sql.SQLException;
 public class Servicio {
     private int id;
     private String nombre;
-    private double precio;
+    private String plan;
+    private float precio;
     private String web;
-    public Servicio(ResultSet result){
+
+
+    public Servicio(ResultSet result) {
         try {
             this.id = result.getInt("id");
             this.nombre = result.getString("nombre");
-            this.precio = result.getDouble("precio");
+            this.plan = result.getString("plan");
+            this.precio = result.getFloat("precio");
             this.web = result.getString("web");
-        } catch (SQLException e){
+
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

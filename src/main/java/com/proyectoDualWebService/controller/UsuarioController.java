@@ -1,92 +1,82 @@
 package com.proyectoDualWebService.controller;
 
-//TODO REVISAR BIEN LOS CONTROLADORES
 
-import com.proyectoDualWebService.service.UsuarioService;
 import com.proyectoDualWebService.dto.Usuario;
 import com.proyectoDualWebService.persistence.manager.impl.ManagerUsuarioImpl;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-import java.sql.SQLException;
+import java.util.List;
 
 @Path("/usuarios")
 public class UsuarioController {
-
-    private final UsuarioService usuarioDAO;
-
-    public UsuarioController(){
-        this.usuarioDAO = new UsuarioService(new ManagerUsuarioImpl());
+    @GET
+    @Path("/getAll")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findAllUsuario() {
+        List<Usuario> usuarios = new ManagerUsuarioImpl().findAll();
+        return Response.ok()
+                .entity(usuarios)
+                .build();
     }
 
     @GET
-    @Path("/getAllUser")
+    @Path("/{id}/get")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findAll() throws SQLException, ClassNotFoundException {
-        return Response.ok().entity(usuarioDAO.findAllUsuario()).build();
+    public Response getUsuario(@PathParam("id") int id) {
+        return Response.ok()
+                .entity(new ManagerUsuarioImpl().findById(id))
+                .build();
     }
 
     @GET
-    @Path("/getUser/{id}")
+    @Path("/{username}/getn")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findById(@PathParam("id") Integer id) {
-        if (id == null){
-            return Response.status(400).entity("Parámetros incorrectos").build();
-        } else {
-            return Response.ok().entity(usuarioDAO.findById(id)).build();
-        }
+    public Response getUsuarioName(@PathParam("username") String username) {
+        return Response.ok()
+                .entity(new ManagerUsuarioImpl().findByUsername(username))
+                .build();
+    }
+
+    @GET
+    @Path("/{email}/getM")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUsuarioEmail(@PathParam("email") String email) {
+        return Response.ok()
+                .entity(new ManagerUsuarioImpl().findByEmail(email))
+                .build();
     }
 
     @POST
-    @Path("/createUser")
+    @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createUser(Usuario usuario){
-        int id = usuarioDAO.createUser(usuario);
-        if (id > 0) {
-            return Response.status(201).entity(usuarioDAO.findById(id)).build();
-        } else {
-            return Response.status(500).entity("Error interno").build();
-        }
-
+    public Response addUsuario(Usuario usuario) {
+        new ManagerUsuarioImpl().insert(usuario);
+        return Response.status(Response.Status.CREATED)
+                .entity(usuario)
+                .build();
     }
 
     @PUT
-    @Path("/updateUser/{id}")
+    @Path("/{id}/update")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response updateUser(@PathParam("id") int id, Usuario usuario){
-        Usuario usuarioBD = usuarioDAO.findById(usuario.getId());
-        if (usuarioBD != null){
-            if (usuarioDAO.updateUser(usuario)){
-                return Response.status(200).entity(usuarioDAO.findById(usuario.getId())).build();
-            } else {
-                return Response.status(500).entity("Error interno").build();
-            }
-        } else {
-            return Response.status(404).entity("Usuario no encontrado").build();
-        }
+    public Response updateUsuario(@PathParam("id") int id, Usuario usuario) {
+        usuario.setId(id);
+        new ManagerUsuarioImpl().update(usuario);
+        return Response.ok()
+                .entity("Usuario actualizado correctamente")
+                .build();
     }
 
     @DELETE
-    @Path("/deleteUser/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteUser(@PathParam("id") int id){
-        try {
-            Usuario usuario = usuarioDAO.findById(id);
-            if (usuario != null){
-                if (usuarioDAO.deleteUser(id)) {
-                    return Response.status(200).entity(usuario).build();
-                } else {
-                    return Response.status(304).entity("Usuario no eliminado").build();
-                }
-            } else {
-                return Response.status(404).entity("Usuario no encontrado").build();
-            }
-        } catch (SQLException | ClassNotFoundException e){
-            return Response.status(500).entity("Error interno").build();
-        }
+    @Path("/{id}/delete")
+    public Response eliminarUsuario(@PathParam("id") int id) {
+        new ManagerUsuarioImpl().delete(id);
+        return Response.ok()
+                .entity("Usuario eliminado correctamente")
+                .build();
     }
 
 }

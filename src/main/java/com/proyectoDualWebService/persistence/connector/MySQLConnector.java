@@ -1,6 +1,5 @@
 package com.proyectoDualWebService.persistence.connector;
 
-import com.proyectoDualWebService.conector.MySQLConstants;
 import lombok.Getter;
 import lombok.Setter;
 

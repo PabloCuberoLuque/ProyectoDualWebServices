@@ -54,4 +54,7 @@ public interface ManagerUsuario extends Manager<Usuario> {
      */
     Usuario findByEmail(String email);
 
+
+
+
 }

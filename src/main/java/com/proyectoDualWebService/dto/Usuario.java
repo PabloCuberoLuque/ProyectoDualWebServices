@@ -16,7 +16,7 @@ public class Usuario {
     private String username;
     private String password;
     private String email;
-    private String img_perfil; //unir
+    private String imagen;
     private LocalDate nacimiento;
     private boolean admin;
 
@@ -26,7 +26,7 @@ public class Usuario {
             this.username = result.getString("usuario");
             this.password = result.getString("pass");
             this.email = result.getString("email");
-            this.img_perfil = result.getString("img_perfil");
+            this.imagen = result.getString("img_perfil");
             this.nacimiento = result.getDate("nacimiento").toLocalDate();
             this.admin = this.isAdmin(result.getInt("admin"));
         } catch (SQLException e){

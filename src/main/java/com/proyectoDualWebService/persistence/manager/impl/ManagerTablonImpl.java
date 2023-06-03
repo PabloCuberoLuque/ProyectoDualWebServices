@@ -111,7 +111,7 @@ public class ManagerTablonImpl implements ManagerTablon {
             List<Tablon> posts = new ArrayList<>();
 
             while (result.next()) {
-                Tablon post = new Tablon();
+                Tablon post = new Tablon(result);
                 posts.add(post);
             }
 
@@ -159,7 +159,7 @@ public class ManagerTablonImpl implements ManagerTablon {
     }
 
     @Override
-    public int create(Tablon obj) {
+    public void insert(Tablon obj) {
         try {
             Connection con = connector.getMySQLConnection();
             PreparedStatement statement = con.prepareStatement("INSERT INTO tablon (mensage, id_user, likes, create_at) VALUES (?, ?, ?, ?)");
@@ -173,12 +173,11 @@ public class ManagerTablonImpl implements ManagerTablon {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return 0;
     }
 
 
     @Override
-    public boolean update(Tablon obj) {
+    public void update(Tablon obj) {
         try {
             Connection con = connector.getMySQLConnection();
             PreparedStatement statement = con.prepareStatement("UPDATE tablon SET mensage = ?, id_user = ?, likes = ?, create_at = ? WHERE id = ?");
@@ -195,11 +194,10 @@ public class ManagerTablonImpl implements ManagerTablon {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return false;
     }
 
     @Override
-    public boolean delete(int id) {
+    public void delete(int id) {
         try {
             Connection con = connector.getMySQLConnection();
             PreparedStatement statement = con.prepareStatement("DELETE FROM usuario WHERE id = ?");
@@ -211,6 +209,7 @@ public class ManagerTablonImpl implements ManagerTablon {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return false;
     }
+
+
 }

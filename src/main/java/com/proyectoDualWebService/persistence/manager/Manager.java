@@ -24,24 +24,21 @@ public interface Manager<T> {
      * Inserta objeto en la base de datos
      *
      * @param obj
-     * @return
      */
-    int create(T obj);
+    void insert(T obj);
 
     /**
      * Actualiza objeto en la base de datos
      *
      * @param obj
-     * @return
      */
-    boolean update(T obj);
+    void update(T obj);
 
     /**
      * Inserta objeto en la base de datos
      *
      * @param id
-     * @return
      */
-    boolean delete(int id);
+    void delete(int id);
 
 }

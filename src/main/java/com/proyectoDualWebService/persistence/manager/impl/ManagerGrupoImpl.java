@@ -1,7 +1,7 @@
 package com.proyectoDualWebService.persistence.manager.impl;
 
 import com.proyectoDualWebService.dto.Grupo;
-import com.proyectoDualWebService.persistence.conector.MySQLConnector;
+import com.proyectoDualWebService.persistence.connector.MySQLConnector;
 import com.proyectoDualWebService.persistence.manager.ManagerGrupo;
 
 import java.sql.*;
@@ -11,14 +11,14 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ManagerGrupoImpl implements ManagerGrupo {
-    private final static MySQLConnector conector = new MySQLConnector();
+    private final static MySQLConnector connector = new MySQLConnector();
 
     @Override
     public List<Grupo> findAll() {
         List<Grupo> grupos = new ArrayList<>();
 
         try {
-            Connection con = conector.getMySQLConnection();
+            Connection con = connector.getMySQLConnection();
             Statement stmt = con.createStatement();
 
             ResultSet result = stmt.executeQuery("SELECT * FROM grupo");
@@ -42,7 +42,7 @@ public class ManagerGrupoImpl implements ManagerGrupo {
         String sql = String.format("SELECT * FROM grupo WHERE id IN (%s)", ids.stream().map(data -> "\"" + data + "\"").collect(Collectors.joining(", ")));
 
         try {
-            Connection con = conector.getMySQLConnection();
+            Connection con = connector.getMySQLConnection();
             Statement stmt = con.createStatement();
 
             ResultSet result = stmt.executeQuery(sql);
@@ -70,7 +70,7 @@ public class ManagerGrupoImpl implements ManagerGrupo {
         String sql = "SELECT * FROM grupo WHERE ID = ?";
 
         try {
-            Connection con = conector.getMySQLConnection();
+            Connection con = connector.getMySQLConnection();
             PreparedStatement stmt = con.prepareStatement(sql);
 
             stmt.setInt(1, id);
@@ -103,7 +103,7 @@ public class ManagerGrupoImpl implements ManagerGrupo {
         String sql = "SELECT * FROM grupo WHERE SERVICIO = ?";
 
         try {
-            Connection con = conector.getMySQLConnection();
+            Connection con = connector.getMySQLConnection();
             PreparedStatement stmt = con.prepareStatement(sql);
 
             stmt.setInt(1, servicio);
@@ -128,9 +128,9 @@ public class ManagerGrupoImpl implements ManagerGrupo {
     }
 
     @Override
-    public int create(Grupo obj) {
+    public void insert(Grupo obj) {
         try {
-            Connection con = conector.getMySQLConnection();
+            Connection con = connector.getMySQLConnection();
             PreparedStatement statement = con.prepareStatement("INSERT INTO grupo (servicio ,user1 ,user2 ,user3, user4, user5, user6, user7, user8 ) VALUES (? ,? ,? ,?, ?, ?, ?, ? , ?)");
             statement.setInt(1, obj.getServicio().getId());
             statement.setInt(2, obj.getUser1().getId());
@@ -177,13 +177,12 @@ public class ManagerGrupoImpl implements ManagerGrupo {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return 0;
     }
 
     @Override
-    public boolean update(Grupo obj) {
+    public void update(Grupo obj) {
         try {
-            Connection con = conector.getMySQLConnection();
+            Connection con = connector.getMySQLConnection();
             PreparedStatement statement = con.prepareStatement("UPDATE grupo SET servicio = ?, user1 = ?, user2 = ?, user3 = ? , user4 = ?, user5 = ? , user6 = ?, user7 = ?, user8 = ?  WHERE id = ?");
             statement.setInt(1, obj.getServicio().getId());
             statement.setInt(2, obj.getUser1().getId());
@@ -231,13 +230,12 @@ public class ManagerGrupoImpl implements ManagerGrupo {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return false;
     }
 
     @Override
-    public boolean delete(int id) {
+    public void delete(int id) {
         try {
-            Connection con = conector.getMySQLConnection();
+            Connection con = connector.getMySQLConnection();
             PreparedStatement statement = con.prepareStatement("DELETE FROM grupo WHERE (id = ?)");
             statement.setInt(1, id);
 
@@ -247,6 +245,5 @@ public class ManagerGrupoImpl implements ManagerGrupo {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return false;
     }
 }

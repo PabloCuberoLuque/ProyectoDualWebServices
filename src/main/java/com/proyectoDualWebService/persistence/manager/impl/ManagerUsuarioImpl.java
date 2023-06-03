@@ -1,7 +1,7 @@
 package com.proyectoDualWebService.persistence.manager.impl;
 
 import com.proyectoDualWebService.dto.Usuario;
-import com.proyectoDualWebService.persistence.conector.MySQLConnector;
+import com.proyectoDualWebService.persistence.connector.MySQLConnector;
 import com.proyectoDualWebService.persistence.manager.ManagerUsuario;
 
 import java.sql.*;
@@ -11,14 +11,14 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ManagerUsuarioImpl implements ManagerUsuario {
-    private final static MySQLConnector conector = new MySQLConnector();
+    private final static MySQLConnector connector = new MySQLConnector();
 
     @Override
     public List<Usuario> findAll() {
         List<Usuario> usuarios = new ArrayList<>();
 
         try {
-            Connection con = conector.getMySQLConnection();
+            Connection con = connector.getMySQLConnection();
             Statement stmt = con.createStatement();
 
             ResultSet result = stmt.executeQuery("SELECT * FROM usuario");
@@ -44,7 +44,7 @@ public class ManagerUsuarioImpl implements ManagerUsuario {
         String sql = String.format("SELECT * FROM usuario WHERE id IN (%s)", ids.stream().map(data -> "\"" + data + "\"").collect(Collectors.joining(", ")));
 
         try {
-            Connection con = conector.getMySQLConnection();
+            Connection con = connector.getMySQLConnection();
             Statement stmt = con.createStatement();
 
             ResultSet result = stmt.executeQuery(sql);
@@ -74,7 +74,7 @@ public class ManagerUsuarioImpl implements ManagerUsuario {
         String sql = "SELECT * FROM usuario WHERE id = ?";
 
         try {
-            Connection con = conector.getMySQLConnection();
+            Connection con = connector.getMySQLConnection();
             PreparedStatement stmt = con.prepareStatement(sql);
 
             stmt.setInt(1, id);
@@ -106,7 +106,7 @@ public class ManagerUsuarioImpl implements ManagerUsuario {
         String sql = "SELECT * FROM usuario WHERE usuario = ?";
 
         try {
-            Connection con = conector.getMySQLConnection();
+            Connection con = connector.getMySQLConnection();
             PreparedStatement stmt = con.prepareStatement(sql);
 
             stmt.setString(1, username);
@@ -135,7 +135,7 @@ public class ManagerUsuarioImpl implements ManagerUsuario {
         String sql = "SELECT * FROM usuario WHERE email = ?";
 
         try {
-            Connection con = conector.getMySQLConnection();
+            Connection con = connector.getMySQLConnection();
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, email);
             ResultSet result = stmt.executeQuery();
@@ -161,9 +161,9 @@ public class ManagerUsuarioImpl implements ManagerUsuario {
     }
 
     @Override
-    public int create(Usuario obj) {
+    public void insert(Usuario obj) {
         try {
-            Connection con = conector.getMySQLConnection();
+            Connection con = connector.getMySQLConnection();
             PreparedStatement statement = con.prepareStatement("INSERT INTO usuario (usuario, pass, email, img_perfil, nacimiento, admin) VALUES (?, ?, ?, ?, ?, ?)");
             statement.setString(1, obj.getUsername());
             statement.setString(2, obj.getPassword());
@@ -179,13 +179,12 @@ public class ManagerUsuarioImpl implements ManagerUsuario {
             e.printStackTrace();
         }
 
-        return 0;
     }
 
     @Override
-    public boolean update(Usuario obj) {
+    public void update(Usuario obj) {
         try {
-            Connection con = conector.getMySQLConnection();
+            Connection con = connector.getMySQLConnection();
             PreparedStatement statement = con.prepareStatement("UPDATE usuario SET usuario = ?, pass = ?, email = ?,img_perfil = ? , nacimiento = ?, admin = ? WHERE id = ?");
             statement.setString(1, obj.getUsername());
             statement.setString(2, obj.getPassword());
@@ -202,13 +201,12 @@ public class ManagerUsuarioImpl implements ManagerUsuario {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return false;
     }
 
     @Override
-    public boolean delete(int id) {
+    public void delete(int id) {
         try {
-            Connection con = conector.getMySQLConnection();
+            Connection con = connector.getMySQLConnection();
             PreparedStatement statement = con.prepareStatement("DELETE FROM usuario WHERE id = ?");
             statement.setInt(1, id);
 
@@ -218,10 +216,10 @@ public class ManagerUsuarioImpl implements ManagerUsuario {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return false;
     }
 
 }
+
 
 
 
