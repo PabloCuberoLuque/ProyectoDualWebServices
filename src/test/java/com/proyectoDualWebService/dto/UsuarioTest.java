@@ -2,35 +2,36 @@ package com.proyectoDualWebService.dto;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Date;
 import java.time.LocalDate;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class UsuarioTest {
 
     @Test
-    public void testUsuarioConstructorWithResultSet() throws SQLException {
+    public void testConstructorWithResultSet() throws SQLException {
+        ResultSet resultSet = mock(ResultSet.class);
 
-        ResultSet resultSetMock = Mockito.mock(ResultSet.class);
-        Mockito.when(resultSetMock.getInt("id")).thenReturn(1);
-        Mockito.when(resultSetMock.getString("usuario")).thenReturn("john_doe");
-        Mockito.when(resultSetMock.getString("pass")).thenReturn("123456");
-        Mockito.when(resultSetMock.getString("email")).thenReturn("john@example.com");
-        Mockito.when(resultSetMock.getString("imagen")).thenReturn("profile.jpg");
-        Mockito.when(resultSetMock.getDate("nacimiento")).thenReturn(Date.valueOf(LocalDate.of(1990, 1, 1)));
-        Mockito.when(resultSetMock.getBoolean("admin")).thenReturn(true);
+        when(resultSet.getInt("id")).thenReturn(1);
+        when(resultSet.getString("usuario")).thenReturn("lau");
+        when(resultSet.getString("pass")).thenReturn("123456");
+        when(resultSet.getString("email")).thenReturn("lau.cg@gmail.com");
+        when(resultSet.getString("img_perfil")).thenReturn("lauImagen.jpg");
+        when(resultSet.getDate("nacimiento")).thenReturn(java.sql.Date.valueOf("2000-01-03"));
+        when(resultSet.getInt("admin")).thenReturn(1);
 
-        Usuario usuario = new Usuario(resultSetMock);
+        Usuario usuario = new Usuario(resultSet);
 
         Assertions.assertEquals(1, usuario.getId());
-        Assertions.assertEquals("john_doe", usuario.getUsername());
+        Assertions.assertEquals("lau", usuario.getUsername());
         Assertions.assertEquals("123456", usuario.getPassword());
-        Assertions.assertEquals("john@example.com", usuario.getEmail());
-        Assertions.assertEquals("profile.jpg", usuario.getImagen());
-        Assertions.assertEquals(LocalDate.of(1990, 1, 1), usuario.getNacimiento());
+        Assertions.assertEquals("lau.cg@gmail.com", usuario.getEmail());
+        Assertions.assertEquals("lauImagen.jpg", usuario.getImagen());
+        Assertions.assertEquals(LocalDate.of(2000, 1, 3), usuario.getNacimiento());
         Assertions.assertTrue(usuario.isAdmin());
     }
+
 }

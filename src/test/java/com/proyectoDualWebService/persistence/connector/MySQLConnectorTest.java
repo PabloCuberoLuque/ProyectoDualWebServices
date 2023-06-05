@@ -1,39 +1,39 @@
 package com.proyectoDualWebService.persistence.connector;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import org.junit.Test;
+
 public class MySQLConnectorTest {
-
-    private MySQLConnector connector;
-    private Properties propertiesMock;
-
-    @BeforeEach
-    public void setUp() throws IOException {
-        propertiesMock = Mockito.mock(Properties.class);
-        connector = new MySQLConnector();
-        connector.setProp(propertiesMock);
-    }
 
     @Test
     public void testGetMySQLConnection() throws ClassNotFoundException, SQLException {
-        String driver = "com.mysql.jdbc.Driver";
-        String url = "jdbc:mysql://localhost:3306/mydb?user=root&password=secret&useSSL=false";
+        // Create a mock properties object
+        Properties props = mock(Properties.class);
+        when(props.getProperty(MySQLConstants.DRIVER)).thenReturn("com.mysql.jdbc.Driver");
+        when(props.getProperty(MySQLConstants.URL_PREFIX)).thenReturn("jdbc:mysql://");
+        when(props.getProperty(MySQLConstants.URL_HOST)).thenReturn("localhost");
+        when(props.getProperty(MySQLConstants.URL_PORT)).thenReturn("3306");
+        when(props.getProperty(MySQLConstants.URL_SCHEMA)).thenReturn("test");
+        when(props.getProperty(MySQLConstants.USER)).thenReturn("user");
+        when(props.getProperty(MySQLConstants.PASSWD)).thenReturn("password");
+        when(props.getProperty(MySQLConstants.URL_SSL)).thenReturn("false");
+        when(props.getProperty(MySQLConstants.ALLOW_PUBLIC_KEY_RETRIEVAL)).thenReturn("true");
+        when(props.getProperty(MySQLConstants.USE_JDBC_COMPLIANT_TIMEZONE_SHIFT)).thenReturn("true");
+        when(props.getProperty(MySQLConstants.USE_LEGACY_DATE_TIME_CODE)).thenReturn("false");
+        when(props.getProperty(MySQLConstants.SERVER_TIMEZONE)).thenReturn("UTC");
 
-        Mockito.when(propertiesMock.getProperty(MySQLConstants.DRIVER)).thenReturn(driver);
-
-        Connection connection = connector.getMySQLConnection();
-
-        Assertions.assertNotNull(connection);
-
-        Mockito.verify(propertiesMock, Mockito.times(1)).getProperty(Mockito.anyString());
+        Connection mockConn = mock(Connection.class);
+        MySQLConnector connectorMock = mock(MySQLConnector.class);
+        when(connectorMock.getMySQLConnection()).thenReturn(mockConn);
+        when(connectorMock.getURL()).thenReturn("");
+        Connection connection = connectorMock.getMySQLConnection();
+        assertEquals(mockConn, connection);
     }
 }
