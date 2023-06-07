@@ -25,7 +25,7 @@ CREATE TABLE grupo(
     id int PRIMARY KEY AUTO_INCREMENT,
     servicio int NOT NULL,
     user1 int NOT NULL,
-    user2 int NOT NULL,
+    user2 int,
     user3 int,
     user4 int,
     user5 int,
