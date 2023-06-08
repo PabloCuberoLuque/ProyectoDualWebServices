@@ -32,10 +32,11 @@ public class GrupoController {
     @POST
     @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response addGrupo(Grupo grupo) {
         new ManagerGrupoImpl().insert(grupo);
         return Response.status(Response.Status.CREATED)
-                .entity("Grupo creado correctamente")
+                .entity(grupo)
                 .build();
 
     }
@@ -43,11 +44,12 @@ public class GrupoController {
     @PUT
     @Path("/{id}/update")
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response updateGrupo(@PathParam("id") int id, Grupo grupo) {
         grupo.setId(id);
         new ManagerGrupoImpl().update(grupo);
         return Response.status(Response.Status.CREATED)
-                .entity("Grupo actualizado correctamente")
+                .entity(grupo)
                 .build();
     }
 
