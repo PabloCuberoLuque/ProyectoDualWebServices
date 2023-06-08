@@ -5,6 +5,7 @@ USE proyectodual;
 CREATE TABLE usuario(
     id int PRIMARY KEY AUTO_INCREMENT,
     usuario varchar(32) NOT NULL UNIQUE,
+    name varchar(32) NOT NULL,
     pass varchar(64) NOT NULL,
     email varchar(64) NOT NULL UNIQUE,
     img_perfil varchar(64),
@@ -16,7 +17,7 @@ CREATE TABLE servicio(
     id int PRIMARY KEY AUTO_INCREMENT,
     nombre varchar(64) NOT NULL,
     plan varchar(64) NOT NULL,
-    precio float(2,2),
+    precio decimal(19,2),
     web varchar(32)
 );
 
@@ -24,7 +25,7 @@ CREATE TABLE grupo(
     id int PRIMARY KEY AUTO_INCREMENT,
     servicio int NOT NULL,
     user1 int NOT NULL,
-    user2 int NOT NULL,
+    user2 int,
     user3 int,
     user4 int,
     user5 int,

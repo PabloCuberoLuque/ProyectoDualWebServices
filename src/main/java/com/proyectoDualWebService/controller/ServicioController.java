@@ -29,6 +29,27 @@ public class ServicioController {
                 .build();
     }
 
+    @GET
+    @Path("{servicio}/getS")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getServicioN(@PathParam("servicio") String nombre){
+        return Response.ok()
+                .header("Access-Control-Allow-Origin", "http://localhost:8080")
+                .header("Access-Control-Allow-Methods", "GET")
+                .header("Access-Control-Allow-Headers", "Content-Type")
+                .entity(new ManagerServicioImpl().findByNombre(nombre))
+                .build();
+    }
+
+    @GET
+    @Path("{servicio}/{plan}/getSP")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getServicioPlan(@PathParam("servicio") String nombre, @PathParam("plan") String plan){
+        return Response.ok()
+                .entity(new ManagerServicioImpl().findByParams(nombre, plan))
+                .build();
+    }
+
     @POST
     @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)

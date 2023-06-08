@@ -134,7 +134,11 @@ public class ManagerGrupoImpl implements ManagerGrupo {
             PreparedStatement statement = con.prepareStatement("INSERT INTO grupo (servicio ,user1 ,user2 ,user3, user4, user5, user6, user7, user8 ) VALUES (? ,? ,? ,?, ?, ?, ?, ? , ?)");
             statement.setInt(1, obj.getServicio().getId());
             statement.setInt(2, obj.getUser1().getId());
-            statement.setInt(3, obj.getUser2().getId());
+            if(obj.getUser2() == null) {
+                statement.setObject(3, null);
+            } else {
+                statement.setInt(3, obj.getUser2().getId());
+            }
             if (obj.getUser3() == null) {
                 statement.setObject(4, null);
             } else {
@@ -186,7 +190,12 @@ public class ManagerGrupoImpl implements ManagerGrupo {
             PreparedStatement statement = con.prepareStatement("UPDATE grupo SET servicio = ?, user1 = ?, user2 = ?, user3 = ? , user4 = ?, user5 = ? , user6 = ?, user7 = ?, user8 = ?  WHERE id = ?");
             statement.setInt(1, obj.getServicio().getId());
             statement.setInt(2, obj.getUser1().getId());
-            statement.setInt(3, obj.getUser2().getId());
+
+            if(obj.getUser2() == null){
+                statement.setObject(3, null);
+            } else {
+                statement.setInt(3, obj.getUser2().getId());
+            }
 
             if (obj.getUser3() == null) {
                 statement.setObject(4, null);
@@ -223,8 +232,7 @@ public class ManagerGrupoImpl implements ManagerGrupo {
             } else {
                 statement.setInt(9, obj.getUser8().getId());
             }
-
-
+            statement.setInt(10, obj.getId());
             statement.executeUpdate();
             con.close();
         } catch (SQLException | ClassNotFoundException e) {
