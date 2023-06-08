@@ -62,11 +62,12 @@ public class UsuarioController {
     @PUT
     @Path("/{id}/update")
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response updateUsuario(@PathParam("id") int id, Usuario usuario) {
         usuario.setId(id);
         new ManagerUsuarioImpl().update(usuario);
         return Response.ok()
-                .entity("Usuario actualizado correctamente")
+                .entity(usuario)
                 .build();
     }
 
