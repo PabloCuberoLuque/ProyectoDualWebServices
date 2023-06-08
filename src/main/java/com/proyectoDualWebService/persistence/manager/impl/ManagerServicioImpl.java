@@ -103,10 +103,11 @@ public class ManagerServicioImpl implements ManagerServicio {
     public void insert(Servicio obj) {
         try {
             Connection con = conector.getMySQLConnection();
-            PreparedStatement statement = con.prepareStatement("INSERT INTO servicio (precio, nombre, web) VALUES (?, ?, ?)");
+            PreparedStatement statement = con.prepareStatement("INSERT INTO servicio (precio, plan , nombre, web) VALUES (?, ?, ?,?)");
             statement.setDouble(1, obj.getPrecio());
-            statement.setString(2, obj.getNombre());
-            statement.setString(3, obj.getWeb());
+            statement.setString(2, obj.getPlan());
+            statement.setString(3, obj.getNombre());
+            statement.setString(4, obj.getWeb());
 
             statement.executeUpdate();
             con.close();

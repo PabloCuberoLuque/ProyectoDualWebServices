@@ -32,21 +32,23 @@ public class ServicioController {
     @POST
     @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response insertServicio(Servicio servicio) {
         new ManagerServicioImpl().insert(servicio);
         return Response.status(Response.Status.CREATED)
-                .entity("Servicio creado correctamente")
+                .entity(servicio)
                 .build();
     }
 
     @PUT
     @Path("/{id}/update")
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response updateServicio(@PathParam("id") int id, Servicio servicio) {
         servicio.setId(id);
         new ManagerServicioImpl().update(servicio);
         return Response.ok()
-                .entity("Servicio actualizado correctamente")
+                .entity(servicio)
                 .build();
     }
 

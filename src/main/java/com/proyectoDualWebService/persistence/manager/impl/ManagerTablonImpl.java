@@ -200,7 +200,7 @@ public class ManagerTablonImpl implements ManagerTablon {
     public void delete(int id) {
         try {
             Connection con = conector.getMySQLConnection();
-            PreparedStatement statement = con.prepareStatement("DELETE FROM usuario WHERE id = ?");
+            PreparedStatement statement = con.prepareStatement("DELETE FROM tablon WHERE id = ?");
             statement.setInt(1, id);
 
 
