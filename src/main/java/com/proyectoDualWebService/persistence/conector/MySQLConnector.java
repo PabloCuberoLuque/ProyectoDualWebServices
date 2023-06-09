@@ -34,7 +34,7 @@ public class MySQLConnector {
         }
     }
 
-    private String getURL() {
+    public String getURL() {
         //jdbc:mysql://${url_host}:${port}/${schema}?user=${user}&password=${pass}&useSSL=false&...;
         return new StringBuilder().append(prop.getProperty(MySQLConstants.URL_PREFIX))
                 .append(prop.getProperty(MySQLConstants.URL_HOST)).append(":")
