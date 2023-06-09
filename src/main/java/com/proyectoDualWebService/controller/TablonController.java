@@ -57,7 +57,18 @@ public class TablonController {
         tablon.setId(id);
         new ManagerTablonImpl().update(tablon);
         return Response.ok()
-                .entity("Tablon actualizado correctamente")
+                .entity(tablon)
+                .build();
+    }
+
+    @PUT
+    @Path("/{id}/likes")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addLike(@PathParam("id") int id, Tablon tablon) {
+        tablon.setId(id);
+        new ManagerTablonImpl().updateLikes(tablon);
+        return Response.ok()
+                .entity(tablon)
                 .build();
     }
 

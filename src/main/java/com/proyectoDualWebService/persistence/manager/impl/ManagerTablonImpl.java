@@ -196,13 +196,28 @@ public class ManagerTablonImpl implements ManagerTablon {
         }
     }
 
+    public void updateLikes(Tablon obj) {
+        try {
+            Connection con = conector.getMySQLConnection();
+            PreparedStatement statement = con.prepareStatement("UPDATE tablon SET likes = ? WHERE id = ?");
+            statement.setInt(1, obj.getLikes());
+            statement.setInt(2, obj.getId());
+
+
+            statement.executeUpdate();
+            con.close();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void delete(int id) {
         try {
             Connection con = conector.getMySQLConnection();
             PreparedStatement statement = con.prepareStatement("DELETE FROM tablon WHERE id = ?");
             statement.setInt(1, id);
-
 
             statement.executeUpdate();
             con.close();
